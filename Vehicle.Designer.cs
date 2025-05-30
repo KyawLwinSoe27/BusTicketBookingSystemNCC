@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.totalSeat = new System.Windows.Forms.NumericUpDown();
             this.VehicleType = new System.Windows.Forms.TextBox();
             this.VehicleName = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -39,10 +40,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCloseVehicle = new System.Windows.Forms.Button();
-            this.totalSeat = new System.Windows.Forms.NumericUpDown();
+            this.update = new System.Windows.Forms.Button();
+            this.delete = new System.Windows.Forms.Button();
+            this.dgvDisplay = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.totalSeat)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -62,6 +66,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vehicle";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // totalSeat
+            // 
+            this.totalSeat.Location = new System.Drawing.Point(149, 162);
+            this.totalSeat.Name = "totalSeat";
+            this.totalSeat.Size = new System.Drawing.Size(314, 26);
+            this.totalSeat.TabIndex = 8;
             // 
             // VehicleType
             // 
@@ -123,6 +134,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.delete);
+            this.groupBox2.Controls.Add(this.update);
             this.groupBox2.Controls.Add(this.btnSave);
             this.groupBox2.Controls.Add(this.btnCloseVehicle);
             this.groupBox2.Location = new System.Drawing.Point(13, 308);
@@ -133,7 +146,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(81, 25);
+            this.btnSave.Location = new System.Drawing.Point(25, 25);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 32);
             this.btnSave.TabIndex = 5;
@@ -151,19 +164,44 @@
             this.btnCloseVehicle.UseVisualStyleBackColor = true;
             this.btnCloseVehicle.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // totalSeat
+            // update
             // 
-            this.totalSeat.Location = new System.Drawing.Point(149, 162);
-            this.totalSeat.Name = "totalSeat";
-            this.totalSeat.Size = new System.Drawing.Size(314, 26);
-            this.totalSeat.TabIndex = 8;
+            this.update.Location = new System.Drawing.Point(127, 25);
+            this.update.Name = "update";
+            this.update.Size = new System.Drawing.Size(75, 32);
+            this.update.TabIndex = 6;
+            this.update.Text = "Update";
+            this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
+            // 
+            // delete
+            // 
+            this.delete.Location = new System.Drawing.Point(239, 25);
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(75, 32);
+            this.delete.TabIndex = 7;
+            this.delete.Text = "Delete";
+            this.delete.UseVisualStyleBackColor = true;
+            this.delete.Click += new System.EventHandler(this.delete_Click);
+            // 
+            // dgvDisplay
+            // 
+            this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDisplay.Location = new System.Drawing.Point(577, 25);
+            this.dgvDisplay.Name = "dgvDisplay";
+            this.dgvDisplay.RowHeadersWidth = 62;
+            this.dgvDisplay.RowTemplate.Height = 28;
+            this.dgvDisplay.Size = new System.Drawing.Size(672, 366);
+            this.dgvDisplay.TabIndex = 2;
+            this.dgvDisplay.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDisplay_CellContentClick);
             // 
             // Vehicle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 403);
+            this.ClientSize = new System.Drawing.Size(1261, 403);
             this.ControlBox = false;
+            this.Controls.Add(this.dgvDisplay);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Vehicle";
@@ -172,8 +210,9 @@
             this.Load += new System.EventHandler(this.Vehicle_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.totalSeat)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -192,5 +231,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCloseVehicle;
         private System.Windows.Forms.NumericUpDown totalSeat;
+        private System.Windows.Forms.Button delete;
+        private System.Windows.Forms.Button update;
+        private System.Windows.Forms.DataGridView dgvDisplay;
     }
 }

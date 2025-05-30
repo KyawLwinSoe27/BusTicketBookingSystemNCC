@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace BusTicketBookingSystem
@@ -25,6 +26,8 @@ namespace BusTicketBookingSystem
         private void Route_Load(object sender, EventArgs e)
         {
             dgvDisplay.DataSource = adapter.GetData(); // Load data into the DataGridView
+            btnDelete.Enabled = false;
+            btnUpdate.Enabled = false;  
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -95,7 +98,92 @@ namespace BusTicketBookingSystem
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            dt.Rows.RemoveAt(DDATA);
+            int data = adapter.DeleteQuery(Route_ID);
+            if (data > 0)
+            {
+                MessageBox.Show("Delete Route Successful", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvDisplay.DataSource = dt;
+            }
+        }
+
+        int DDATA;
+        DataTable dt = new DataTable();
+        string Route_ID;
+        string dtRoute;
+        string rID;
+
+        private void dgvGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataTable dtRoute = new DataTable();
+
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+            btnAdd.Enabled = false;
+
+            dt = adapter.GetData();
+            DDATA = dgvDisplay.CurrentRow.Index;
+            Route_ID = dt.Rows[DDATA][0].ToString();
+            dtRoute = adapter.SelectRoute(Route_ID);
+            if (dtRoute.Rows.Count > 0)
+            {
+                routeFrom.Text = dtRoute.Rows[0][1].ToString();
+                routeTo.Text = dtRoute.Rows[0][2].ToString();
+                price.Text = dtRoute.Rows[0][3].ToString();
+                cboRouteType.Text = dtRoute.Rows[0][4].ToString();
+            }
+        }
+
+        private void dgvDisplay_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
            
+
+            if (routeFrom.Text == "")
+            {
+                MessageBox.Show("Please Enter Route From", "Route Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                routeFrom.Focus();
+            }
+
+            else if (routeTo.Text == "")
+            {
+                MessageBox.Show("Please Enter Route To", "Route Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                routeTo.Focus();
+            }
+
+            else if (price.Text == "")
+            {
+                MessageBox.Show("Please Enter Price", "Route Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                price.Focus();
+            }
+
+            else if (cboRouteType.Text == "")
+            {
+                MessageBox.Show("Please Enter Route Type", "Route Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cboRouteType.Focus();
+            }
+
+            else
+            {
+                string rFrom, rTo, rType;
+                decimal Price;
+
+                rFrom = routeFrom.Text;
+                rTo = routeTo.Text;
+                Price = Convert.ToDecimal(price.Text);
+                rType = cboRouteType.Text;
+                int data = adapter.UpdateQuery(rFrom, rTo, Price, rType, Route_ID);
+                if (data > 0)
+                {
+                    MessageBox.Show("Update Route Successdful!!!");
+                    dgvDisplay.DataSource = adapter.GetData();
+                }
+
+            }
         }
     }
 }

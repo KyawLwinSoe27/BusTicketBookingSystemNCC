@@ -9,7 +9,9 @@
 
 namespace BusTicketBookingSystem.BusDSTableAdapters
 {
-
+    partial class routeTableAdapter
+    {
+    }
 
     public partial class staffTableAdapter
     {
